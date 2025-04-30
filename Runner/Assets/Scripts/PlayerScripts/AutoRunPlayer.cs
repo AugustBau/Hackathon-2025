@@ -4,15 +4,12 @@ using System.Collections; // Importing the System.Collections namespace for usin
 
 public class AutoRunPlayer : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float moveSpeed = 5f;
+    private Rigidbody2D rb;
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        rb = GetComponent<Rigidbody2D>();
+        rb.linearVelocity = new Vector2(moveSpeed, 0f);
     }
 }
