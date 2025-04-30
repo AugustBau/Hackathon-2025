@@ -6,11 +6,10 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance;
 
     //remember to add player sounds once made
-    public Sound[] enemyJump, enemyStart, enemyRestart, enemyShaken, enemyCatch, enemyWin, enemyFall;
+    public Sound[] enemyJump, enemyStart, enemyRestart, enemyShaken, enemyCatch, enemyWin, enemyFall, playerSFX;
     public AudioSource musicSource, playerSource, enemySource;
 
     private string lastSoundEnemy = null;
-    private string lastSoundPlayer = null;
 
     private void Awake()
     {
@@ -74,42 +73,19 @@ public class SoundManager : MonoBehaviour
         enemySource.PlayOneShot(selectedSoundEnemy.clip);
     }
 
-    public void PlayPlayerSound(string arrayName)
+    public void PlayPlayerSound(string name)
     {
-        /*
-        Sound[] selectedArray = null;
+        Sound sound = Array.Find(playerSFX, x => x.name == name);
 
-        switch (arrayName.ToLower())
+        if (sound == null)
         {
-            case "jumping":
-                selectedArray = jumpingSounds;
-                break;
-            case "dying":
-                selectedArray = dyingSounds;
-                break;
-            case "starting":
-                selectedArray = startingSounds;
-                break;
-            default:
-                Debug.LogError($"Sound array '{arrayName}' not found.");
-                return;
+            Debug.Log("SFX sound not found");
         }
 
-        if (selectedArray == null || selectedArray.Length == 0)
+        else
         {
-            Debug.LogError($"Sound array '{arrayName}' is empty or null.");
-            return;
+            playerSource.PlayOneShot(sound.clip);
         }
-
-        Sound selectedSound;
-        do
-        {
-            selectedSound = selectedArray[UnityEngine.Random.Range(0, selectedArray.Length)];
-        } while (selectedSound.name == lastSound && selectedArray.Length > 1);
-
-        lastSound = selectedSound.name;
-        soundSource.PlayOneShot(selectedSound.clip);
-        */
     }
 }
 

@@ -40,7 +40,7 @@ public class BirdSpawner : MonoBehaviour
             GameObject bird = GetBirdFromPool();
             if (bird != null)
             {
-                float offsetY = Random.Range(-0.5f, 0.5f);
+                float offsetY = Random.Range(-1f, 1f);
                 bird.GetComponent<Bird>().Fly(new Vector2(xStart, spawnY + offsetY));
             }
         }

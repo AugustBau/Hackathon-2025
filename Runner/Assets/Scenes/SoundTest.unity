@@ -2799,6 +2799,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: dc78d47908800aa4f85888199c757340, type: 3}
   - name: Fall4
     clip: {fileID: 8300000, guid: e4b551d3b29c76543a78b8472cc449a5, type: 3}
+  playerSFX:
+  - name: PlayerJump
+    clip: {fileID: 8300000, guid: 42c1f5fd519553d4aa6a085cfc549710, type: 3}
+  - name: PlayerDie
+    clip: {fileID: 8300000, guid: 55fced419e0bc6546a807b9d3182f16d, type: 3}
+  - name: PlayerSlide
+    clip: {fileID: 8300000, guid: 06bcbafb1f7a64e4fa23ead5d8d3dc72, type: 3}
   musicSource: {fileID: 963937458}
   playerSource: {fileID: 945012388}
   enemySource: {fileID: 600011646}
