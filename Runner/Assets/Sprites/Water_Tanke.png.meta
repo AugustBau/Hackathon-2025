@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b48c2eff042d0443a9d0e01a706dcfd0
+guid: 9330727b6db6c438fb0e515ee6255e8d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8345237626510581152
-    second: background for hackaton game png_0
+      213: 4372354353732097766
+    second: Water_Tanke_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: background for hackaton game png_0
+      name: Water_Tanke_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 13
         y: 0
-        width: 64
-        height: 64
+        width: 38
+        height: 59
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 062ec99f792cf2c80800000000000000
-      internalID: -8345237626510581152
+      spriteID: 6e695567e19bdac30800000000000000
+      internalID: 4372354353732097766
       vertices: []
       indices: 
       edges: []
