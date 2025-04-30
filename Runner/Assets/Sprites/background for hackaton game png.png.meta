@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      background for hackaton game png_0: -8345237626510581152
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
