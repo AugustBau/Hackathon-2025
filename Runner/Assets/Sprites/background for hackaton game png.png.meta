@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b48c2eff042d0443a9d0e01a706dcfd0
+guid: 222fedaf6ab13d243b1caffd79947306
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      background for hackaton game png_0: -8345237626510581152
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
