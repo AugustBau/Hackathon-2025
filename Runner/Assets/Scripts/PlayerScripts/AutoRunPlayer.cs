@@ -1,21 +1,12 @@
 using UnityEngine;
-using System.Collections.Generic; // Importing the System.Collections.Generic namespace for using lists and collections
-using System.Collections; // Importing the System.Collections namespace for using coroutines
 
-public class AutoRun2D : MonoBehaviour
+public class AutoRunPlayer : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    private Rigidbody2D rb;
+    public float speed = 5f;
 
-    void start()
-    {
-         rb = GetComponent<Rigidbody2D>();
-    }
-    
     void Update()
     {
-       
-        rb.linearVelocity = new Vector2(moveSpeed, 0f);
-        
+        // Move the player to the right automatically
+        transform.Translate(Vector3.right * speed * Time.deltaTime);
     }
 }
