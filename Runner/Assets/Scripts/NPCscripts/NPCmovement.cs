@@ -41,9 +41,6 @@ public class NPCFollower : MonoBehaviour
         // Raycast lige frem (bruges til at opdage vandtårne → slide)
         RaycastHit2D frontHit = Physics2D.Raycast(transform.position, Vector2.right, 1f, obstacleLayer);
 
-        // Raycast lidt frem + nedad (bruges til at opdage huller)
-        Vector2 downOrigin = transform.position + Vector3.right * 0.6f;
-        RaycastHit2D holeHit = Physics2D.Raycast(downOrigin, Vector2.down, 1.5f, groundLayer);
 
         // Raycast lidt oppe + fremad (bruges til at opdage skorstene)
         Vector2 upperOrigin = transform.position + Vector3.up * 0.6f;
@@ -94,10 +91,7 @@ public class NPCFollower : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.right * 1f);
 
-        // Raycast skråt ned (hul)
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position + Vector3.right * 0.6f, (Vector2)transform.position + new Vector2(0.6f, -1.5f));
-
+       
         // Raycast lidt oppe og frem (skorsten)
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position + Vector3.up * 0.6f, (Vector2)transform.position + new Vector2(1f, 0.6f));
