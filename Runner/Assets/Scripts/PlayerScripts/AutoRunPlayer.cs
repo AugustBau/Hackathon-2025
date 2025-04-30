@@ -3,10 +3,9 @@ using UnityEngine;
 public class AutoRunPlayer : MonoBehaviour
 {
     public float speed = 5f;
-
-    void Update()
+    void Start()
     {
-        // Move the player to the right automatically
-        transform.Translate(Vector3.right * speed * Time.deltaTime);
+        rb = GetComponent<Rigidbody2D>();
+        rb.linearVelocity = new Vector2(moveSpeed, 0f);
     }
 }
