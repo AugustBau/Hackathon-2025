@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5000747708585069822}
   - component: {fileID: 1361416488502309105}
   - component: {fileID: 1089946110847267251}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Water_Tanke_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 5761162618956981152}
   - component: {fileID: 7467198959993772228}
   - component: {fileID: 8570028158763212518}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuldingWaterTank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
