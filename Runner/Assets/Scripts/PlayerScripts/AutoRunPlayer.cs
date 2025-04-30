@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class AutoRunPlayer : MonoBehaviour
 {
-    public float speed = 5f;
+    public float moveSpeed = 5f;
+    private Rigidbody2D rb;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
