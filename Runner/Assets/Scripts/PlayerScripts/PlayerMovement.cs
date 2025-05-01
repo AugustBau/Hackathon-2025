@@ -6,9 +6,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public float jumpForce = 5f;
+    AutoRunPlayer autoRunPlayer;
+
+    public float jumpForce = 50f;
     private Rigidbody2D rb;
-    private bool isGrounded;
+    public bool isGrounded;
     private float slideTimer;
     bool isSliding = false;
 
@@ -28,7 +30,8 @@ public class PlayerMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-         
+        autoRunPlayer = GetComponent<AutoRunPlayer>();
+
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerCollider = GetComponent<BoxCollider2D>();
@@ -63,19 +66,39 @@ public class PlayerMovement : MonoBehaviour
                     if (swipeDirection.y > 0 && isGrounded)
                     {
                         // Swipe Up - Jump
-                        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-                        SoundManager.Instance.PlayPlayerSound("PlayerJump");
+                        Jump();
                     }
                     else if (swipeDirection.y < 0 && isGrounded && !isSliding)
                     {
                         // Swipe Down - Slide
-                        StartCoroutine(SlideCoroutine());
-                        SoundManager.Instance.PlayPlayerSound("PlayerSlide");
+                        Slide();
                     }
                 }
             }
         }
+            if(Input.GetKey(KeyCode.W) && isGrounded)
+        {
+            Jump();
+        }
+        if (Input.GetKey(KeyCode.S) && isGrounded && !isSliding)
+        {
+            Slide();
+        }
 
+    }
+    void Jump ()
+    {
+        Debug.Log("jump");
+        rb.linearVelocity = new Vector2(rb.linearVelocityX, jumpForce);
+        //rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+        SoundManager.Instance.PlayPlayerSound("PlayerJump");
+        
+    }
+    void Slide()
+    {
+
+        StartCoroutine(SlideCoroutine());
+        SoundManager.Instance.PlayPlayerSound("PlayerSlide");
     }
 
     private System.Collections.IEnumerator SlideCoroutine()
@@ -84,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isSliding", true);
 
         Vector2 slideSize = playerCollider.size;
-        slideSize.y = 0.3f;
+        slideSize.y = 0.15f;
         playerCollider.size = slideSize;
 
         yield return new WaitForSeconds(2f);
