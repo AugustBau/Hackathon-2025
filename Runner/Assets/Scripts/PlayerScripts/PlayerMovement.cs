@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     private float slideTimer;
     bool isSliding = false;
 
+    private Animator animator;
+
 
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
@@ -28,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     {
          
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         playerCollider = GetComponent<BoxCollider2D>();
         originalColliderSize = playerCollider.size;
         originalColliderSize.y = 0.64f;
@@ -76,15 +79,17 @@ public class PlayerMovement : MonoBehaviour
     private System.Collections.IEnumerator SlideCoroutine()
     {
         isSliding = true;
+        animator.SetBool("isSliding", true);
 
         Vector2 slideSize = playerCollider.size;
-        slideSize.y = 0.1f;
+        slideSize.y = 0f;
         playerCollider.size = slideSize;
 
         yield return new WaitForSeconds(2f);
 
         playerCollider.size = originalColliderSize;
         isSliding = false;
+        animator.SetBool("isSliding", false);
     }
 
     void OnDrawGizmos()
