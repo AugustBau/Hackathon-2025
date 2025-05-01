@@ -47,7 +47,7 @@ public class NPCFollower : MonoBehaviour
         RaycastHit2D highHit = Physics2D.Raycast(upperOrigin, Vector2.right, 1f, obstacleLayer);
 
         // Hvis der er et hul ELLER en lav forhindring foran → hop (kun hvis den står på jorden)
-        if ((!highHit.collider) && isGrounded)
+        if ((highHit.collider) && isGrounded)
         {
             Jump();
         }

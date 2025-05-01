@@ -9,19 +9,27 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 5f;
     private Rigidbody2D rb;
     private bool isGrounded;
+    private float slideTimer;
+    bool isSliding = false;
 
 
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
-    
+
+    public BoxCollider2D playerCollider;
+    private Vector2 originalColliderSize;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
          
-       rb = GetComponent<Rigidbody2D>();
-        
+        rb = GetComponent<Rigidbody2D>();
+        playerCollider = GetComponent<BoxCollider2D>();
+        originalColliderSize = playerCollider.size;
+        originalColliderSize.y = 0.64f;
+        playerCollider.size = originalColliderSize;
     }
 
     // Update is called once per frame
@@ -33,8 +41,26 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
+
+        if (Input.GetKeyDown(KeyCode.S) && isGrounded && !isSliding)
+        {
+            StartCoroutine(SlideCoroutine());
+        }
     }
 
+    private System.Collections.IEnumerator SlideCoroutine()
+    {
+        isSliding = true;
+
+        Vector2 slideSize = playerCollider.size;
+        slideSize.y = 0f;
+        playerCollider.size = slideSize;
+
+        yield return new WaitForSeconds(2f);
+
+        playerCollider.size = originalColliderSize;
+        isSliding = false;
+    }
 
     void OnDrawGizmos()
     {

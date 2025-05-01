@@ -12,12 +12,12 @@ TagManager:
   - Water
   - UI
   - Ground
+  - 'Ventilator '
+  - WaterTank
+  - Obstacle
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - SlideArea
   - 
   - 
   - 
