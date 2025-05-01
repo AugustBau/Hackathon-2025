@@ -492,6 +492,17 @@
                     "action": "Slide",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0ad1f1ee-22fc-4997-a0d4-94fe7500a523",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
