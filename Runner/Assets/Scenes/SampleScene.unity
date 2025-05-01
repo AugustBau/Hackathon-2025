@@ -316,6 +316,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goal (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4959078319132390826, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
+      propertyPath: m_Size.x
+      value: 2.6009903
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959078319132390826, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
+      propertyPath: m_Size.y
+      value: 2.0168073
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959078319132390826, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.98859787
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959078319132390826, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.4990121
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959078319132390826, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7151201075974995114, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 291.62
@@ -1684,6 +1704,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goal (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4959078319132390826, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
+      propertyPath: m_Size.x
+      value: 2.2423782
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959078319132390826, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
+      propertyPath: m_Size.y
+      value: 3.0242097
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959078319132390826, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.80929184
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959078319132390826, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
+      propertyPath: m_Offset.y
+      value: 1.0027133
+      objectReference: {fileID: 0}
     - target: {fileID: 7151201075974995114, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 288.27786
@@ -2140,7 +2176,7 @@ GameObject:
   - component: {fileID: 1203048296}
   m_Layer: 0
   m_Name: MainCharachter
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2953,6 +2989,26 @@ PrefabInstance:
     - target: {fileID: 4910412946426507314, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
       propertyPath: m_Name
       value: Goal
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959078319132390826, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
+      propertyPath: m_Size.x
+      value: 3.637024
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959078319132390826, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
+      propertyPath: m_Size.y
+      value: 1.9349668
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959078319132390826, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.90600586
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959078319132390826, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.45809186
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959078319132390826, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7151201075974995114, guid: 7f5265b199c688f4ab269c78f0e6a66a, type: 3}
       propertyPath: m_LocalPosition.x

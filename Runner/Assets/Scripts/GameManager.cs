@@ -6,15 +6,16 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     float startTimer;
-    string currentScene;
+    int currentScene;
     bool danielStarted = false;
     bool runningStarted = false;
+    bool doOnce = false;
 
     private void Awake()
     {
         startTimer = 0;
         danielStarted = false;
-        currentScene = "IntroScene";
+        currentScene = 0;
         SoundManager.Instance.PlayPlayerSound("GlassShatter");
 
         if (Instance == null)
@@ -46,10 +47,12 @@ public class GameManager : MonoBehaviour
             danielStarted = true;
         }
 
-        if (currentScene == "IntroScene" && startTimer >= 5)
+        if (!doOnce && startTimer >= 5)
         {
             SceneManager.LoadScene("SampleScene");
             startTimer = 0;
+            Debug.Log("Loading sample scene");
+            doOnce = true;
         }
         else
         {
@@ -60,7 +63,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
-        currentScene = sceneName;
+        currentScene = SceneManager.GetSceneByName(sceneName).rootCount;
         SceneManager.LoadScene(sceneName);
     }
 }

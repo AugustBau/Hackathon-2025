@@ -45,9 +45,15 @@ public class NPCFollower : MonoBehaviour
 
         isTouchingPlayer = false;
         originalSpeed = moveSpeed;
-
-        player.enabled = true;
-        enemy.enabled = true;
+        try
+        {
+            player.enabled = true;
+            enemy.enabled = true;
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Player or enemy not found: " + e.Message);
+        }
     }
 
     void Update()
