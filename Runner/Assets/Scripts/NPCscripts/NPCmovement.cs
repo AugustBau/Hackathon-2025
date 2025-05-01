@@ -75,6 +75,7 @@ public class NPCFollower : MonoBehaviour
         // Slide ved lav forhindring
         if (frontHit.collider && !isSliding && isGrounded)
         {
+            Debug.Log("Daniel sldies");
             StartCoroutine(Slide());
         }
 
