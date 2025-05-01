@@ -938,7 +938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5.2
-  jumpForce: 12
+  jumpForce: 5
   slideDuration: 1
   groundCheck: {fileID: 1434530266}
   groundLayer:
