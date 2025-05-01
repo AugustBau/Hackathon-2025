@@ -1,42 +1,37 @@
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
-using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     public float jumpForce = 5f;
     private Rigidbody2D rb;
     private bool isGrounded;
-    private float slideTimer;
-    bool isSliding = false;
-
+    private bool isSliding = false;
 
     public Transform groundCheck;
-    public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
 
     public BoxCollider2D playerCollider;
     private Vector2 originalColliderSize;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-         
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
         originalColliderSize = playerCollider.size;
+
+        // Sæt collideren korrekt fra start
         originalColliderSize.y = 0.64f;
         playerCollider.size = originalColliderSize;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-        
+        // Brug Raycast til at tjekke om vi står på jorden
+        RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.3f, groundLayer);
+        isGrounded = hit.collider != null;
+
+        Debug.Log("Is Grounded: " + isGrounded);
+
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
@@ -65,6 +60,9 @@ public class PlayerMovement : MonoBehaviour
     void OnDrawGizmos()
     {
         if (groundCheck != null)
-        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(groundCheck.position, groundCheck.position + Vector3.down * 0.3f);
+        }
     }
 }
