@@ -1233,7 +1233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 5
-  groundCheck: {fileID: 0}
+  groundCheck: {fileID: 1897355978}
   groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
