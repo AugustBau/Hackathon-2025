@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// Rigidbody2D på objektet
+// Sørger for at der altid er en Rigidbody2D på objektet
 [RequireComponent(typeof(Rigidbody2D))]
 public class NPCFollower : MonoBehaviour
 {
@@ -35,24 +35,27 @@ public class NPCFollower : MonoBehaviour
         if (!isSliding)
             rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);
 
-        // Tjek om den står på jorden (lille cirkel under fødderne)
+        // Tjek om vi står på jorden (lille cirkel under fødderne)
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
 
         // Raycast lige frem (bruges til at opdage vandtårne → slide)
         RaycastHit2D frontHit = Physics2D.Raycast(transform.position, Vector2.right, 1f, obstacleLayer);
 
+        // Raycast lidt frem + nedad (bruges til at opdage huller)
+        Vector2 downOrigin = transform.position + Vector3.right * 0.6f;
+        RaycastHit2D holeHit = Physics2D.Raycast(downOrigin, Vector2.down, 1.5f, groundLayer);
 
         // Raycast lidt oppe + fremad (bruges til at opdage skorstene)
         Vector2 upperOrigin = transform.position + Vector3.up * 0.6f;
         RaycastHit2D highHit = Physics2D.Raycast(upperOrigin, Vector2.right, 1f, obstacleLayer);
 
-        // Hvis der er et hul ELLER en lav forhindring foran → hop (kun hvis den står på jorden)
-        if ((highHit.collider) && isGrounded)
+        // Hvis der er et hul ELLER en lav forhindring foran → hop (kun hvis vi står på jorden)
+        if ((!holeHit.collider || highHit.collider) && isGrounded)
         {
             Jump();
         }
 
-        // Hvis der er en høj forhindring lige foran → slide (kun hvis den står på jorden og ikke allerede slider)
+        // Hvis der er en høj forhindring lige foran → slide (kun hvis vi står på jorden og ikke allerede slider)
         if (frontHit.collider && !isSliding && isGrounded)
         {
             StartCoroutine(Slide());
@@ -68,7 +71,7 @@ public class NPCFollower : MonoBehaviour
     // Coroutine = noget der sker over tid
     System.Collections.IEnumerator Slide()
     {
-        isSliding = true; // Nu slider den
+        isSliding = true; // Nu slider vi
 
         // Gør NPC'ens collider lavere (så den kan komme under vandtårnet)
         col.size = new Vector2(col.size.x, col.size.y / 2f);
@@ -91,7 +94,10 @@ public class NPCFollower : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.right * 1f);
 
-       
+        // Raycast skråt ned (hul)
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position + Vector3.right * 0.6f, (Vector2)transform.position + new Vector2(0.6f, -1.5f));
+
         // Raycast lidt oppe og frem (skorsten)
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position + Vector3.up * 0.6f, (Vector2)transform.position + new Vector2(1f, 0.6f));
