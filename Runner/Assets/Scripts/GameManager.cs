@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 
         if (currentScene == "IntroScene" && startTimer >= 5)
         {
-            SceneManager.LoadScene("SoundTest");
+            SceneManager.LoadScene("SampleScene");
             startTimer = 0;
         }
         else
