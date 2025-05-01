@@ -937,7 +937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96234da282be640a89ba0890f5079bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 5.2
   jumpForce: 12
   slideDuration: 1
   groundCheck: {fileID: 1434530266}
@@ -1055,6 +1055,7 @@ GameObject:
   - component: {fileID: 1203048289}
   - component: {fileID: 1203048293}
   - component: {fileID: 1203048294}
+  - component: {fileID: 1203048295}
   m_Layer: 0
   m_Name: MainCharachter
   m_TagString: Untagged
@@ -1239,6 +1240,28 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 576
   playerCollider: {fileID: 0}
+--- !u!95 &1203048295
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203048288}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 88931608a51b04c9d8df6cd6e6ae43ea, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1300589288
 PrefabInstance:
   m_ObjectHideFlags: 0
