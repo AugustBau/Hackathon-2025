@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Sørger for at der altid er en Rigidbody2D på objektet
 [RequireComponent(typeof(Rigidbody2D))]
@@ -27,11 +28,6 @@ public class NPCFollower : MonoBehaviour
     private BoxCollider2D playerTouch;
     private bool isTouchingPlayer = false;
 
-    // UI og grafik
-    public GameObject restartButton;
-    public SpriteRenderer player;
-    public SpriteRenderer enemy;
-
     // Shake detection
     public float shakeThreshold = 2.0f;
     public float shakeCooldown = 1.0f;
@@ -45,15 +41,6 @@ public class NPCFollower : MonoBehaviour
 
         isTouchingPlayer = false;
         originalSpeed = moveSpeed;
-        try
-        {
-            player.enabled = true;
-            enemy.enabled = true;
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError("Player or enemy not found: " + e.Message);
-        }
     }
 
     void Update()
@@ -127,17 +114,15 @@ public class NPCFollower : MonoBehaviour
         Gizmos.DrawLine(transform.position + Vector3.up * 0.6f, (Vector2)transform.position + new Vector2(1f, 0.6f));
     }
 
-    /* void OnTriggerEnter2D(Collider2D other)
+     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !isTouchingPlayer)
         {
             SoundManager.Instance.PlayEnemySound("catching");
             isTouchingPlayer = true;
             Debug.Log("touching player");
-            player.enabled = false;
-            enemy.enabled = false;
-            restartButton.SetActive(true);
+            GameManager.Instance.LoadScene("SampleScene");
         }
     }
-    */
+    
 }
