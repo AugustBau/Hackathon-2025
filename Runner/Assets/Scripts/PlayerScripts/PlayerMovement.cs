@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
 
     public BoxCollider2D playerCollider;
     private Vector2 originalColliderSize;
+    private Vector2 startTouchPosition;
+    private Vector2 endTouchPosition;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,17 +37,40 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
         
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        float swipeThreshold = 50f; // Adjust for sensitivity
+
+            isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    startTouchPosition = touch.position;
+                }
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    endTouchPosition = touch.position;
+                    Vector2 swipeDirection = endTouchPosition - startTouchPosition;
+
+                if (Mathf.Abs(swipeDirection.y) > swipeThreshold && Mathf.Abs(swipeDirection.y) > Mathf.Abs(swipeDirection.x))
+                {
+                    if (swipeDirection.y > 0 && isGrounded)
+                    {
+                        // Swipe Up - Jump
+                        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                    }
+                    else if (swipeDirection.y < 0 && isGrounded && !isSliding)
+                    {
+                        // Swipe Down - Slide
+                        StartCoroutine(SlideCoroutine());
+                    }
+                }
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.S) && isGrounded && !isSliding)
-        {
-            StartCoroutine(SlideCoroutine());
-        }
     }
 
     private System.Collections.IEnumerator SlideCoroutine()
