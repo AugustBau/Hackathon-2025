@@ -2173,7 +2173,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -2316,7 +2316,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fefd8bdc1c914d3fb8def73bd5dd227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 5
+  jumpForce: 10
+  isGrounded: 0
   groundCheck: {fileID: 1897355978}
   groundCheckRadius: 0.2
   groundLayer:
