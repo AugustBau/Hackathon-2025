@@ -13,6 +13,8 @@ public class NPCFollower : MonoBehaviour
     // Hvor længe en slide varer
     public float slideDuration = 1f;
 
+    private Animator animator;
+
     private Rigidbody2D rb;         // Reference til Rigidbody2D-komponenten
     private bool isGrounded = true; // Tjek om NPC'en er på jorden
     private bool isSliding = false; // Tjek om NPC'en er midt i en slide
@@ -27,6 +29,7 @@ public class NPCFollower : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();     // Henter Rigidbody2D-komponenten
         col = GetComponent<CapsuleCollider2D>(); // Henter Collideren
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -72,6 +75,8 @@ public class NPCFollower : MonoBehaviour
     System.Collections.IEnumerator Slide()
     {
         isSliding = true; // Nu slider vi
+        animator.SetBool("isSliding", true);
+
 
         // Gør NPC'ens collider lavere (så den kan komme under vandtårnet)
         col.size = new Vector2(col.size.x, col.size.y / 2f);
@@ -85,6 +90,7 @@ public class NPCFollower : MonoBehaviour
         col.offset = new Vector2(col.offset.x, col.offset.y + 0.25f);
 
         isSliding = false; // Slut med slide
+        animator.SetBool("isSliding", false);
     }
 
     // Denne metode tegner Raycasts i editoren, så du visuelt kan se hvad NPC'en "ser"
