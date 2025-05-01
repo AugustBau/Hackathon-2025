@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isSliding", true);
 
         Vector2 slideSize = playerCollider.size;
-        slideSize.y = 0f;
+        slideSize.y = 0.3f;
         playerCollider.size = slideSize;
 
         yield return new WaitForSeconds(2f);
