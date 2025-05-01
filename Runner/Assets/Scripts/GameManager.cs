@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     string currentScene;
     bool danielStarted = false;
     bool runningStarted = false;
-    public GameObject restartButton;
 
     private void Awake()
     {

@@ -25,6 +25,8 @@ public class NPCFollower : MonoBehaviour
     private BoxCollider2D playerTouch;  // Collider der checker om NPC'en rører spilleren
     private bool isTouchingPlayer = false; // Tjek om NPC'en rører ved spilleren
     public GameObject restartButton;
+    public SpriteRenderer player; // Reference til spilleren
+    public SpriteRenderer enemy; // Reference til Daniel
 
     void Start()
     {
@@ -32,6 +34,9 @@ public class NPCFollower : MonoBehaviour
         col = GetComponent<CapsuleCollider2D>(); // Henter Collideren
         playerTouch = GetComponent<BoxCollider2D>();
         isTouchingPlayer = false;
+
+        player.enabled = true; // Gør spilleren aktiv
+        enemy.enabled = true; // Gør spilleren aktiv
     }
 
     void Update()
@@ -115,6 +120,8 @@ public class NPCFollower : MonoBehaviour
             SoundManager.Instance.PlayEnemySound("catching");
             isTouchingPlayer = true;
             Debug.Log("touching player");
+            player.enabled = false;
+            enemy.enabled = false;
             restartButton.SetActive(true);
         }
     }
