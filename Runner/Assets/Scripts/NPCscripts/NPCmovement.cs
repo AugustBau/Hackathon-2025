@@ -52,44 +52,37 @@ public class NPCFollower : MonoBehaviour
 
     void Update()
     {
-        // Bevæg NPC'en hvis ikke den slider
         if (!isSliding)
-            rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocityY);
+            rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);
 
-        // Tjek om NPC'en står på jorden
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
 
-        // Raycasts for at opdage forhindringer
-        RaycastHit2D frontHit = Physics2D.Raycast(transform.position, Vector2.right, 1f, obstacleLayer);
+        // Raycast lige frem for at tjekke WaterTank og Ventilator
+        RaycastHit2D frontHit = Physics2D.Raycast(transform.position, Vector2.right, 1f);
         Vector2 downOrigin = transform.position + Vector3.right * 0.6f;
         RaycastHit2D holeHit = Physics2D.Raycast(downOrigin, Vector2.down, 1.5f, groundLayer);
         Vector2 upperOrigin = transform.position + Vector3.up * 0.6f;
-        RaycastHit2D highHit = Physics2D.Raycast(upperOrigin, Vector2.right, 1f, obstacleLayer);
+        RaycastHit2D highHit = Physics2D.Raycast(upperOrigin, Vector2.right, 1f);
 
-        // Hop ved hul eller skorsten
-        if ((!holeHit.collider || highHit.collider) && isGrounded)
+        // Tjek om vi skal hoppe pga. hul eller lav forhindring
+        if ((!holeHit.collider || (highHit.collider && IsLayer(highHit.collider.gameObject, "Ventilator"))) && isGrounded)
         {
             Jump();
         }
 
-        // Slide ved lav forhindring
-        if (frontHit.collider && !isSliding && isGrounded)
+        // Slide under WaterTank
+        if (frontHit.collider && IsLayer(frontHit.collider.gameObject, "WaterTank") && !isSliding && isGrounded)
         {
             StartCoroutine(Slide());
-            SoundManager.Instance.PlayEnemySound("jumping");
-        }
-
-        // Shake detection
-        if (Time.time - lastShakeTime > shakeCooldown)
-        {
-            if (Input.acceleration.sqrMagnitude >= shakeThreshold * shakeThreshold)
-            {
-                lastShakeTime = Time.time;
-                StartCoroutine(SlowDownNPC());
-                SoundManager.Instance.PlayEnemySound("shaken");
-            }
+            SoundManager.Instance.PlayEnemySound("sliding");
         }
     }
+
+    bool IsLayer(GameObject obj, string layerName)
+    {
+        return obj.layer == LayerMask.NameToLayer(layerName);
+    }
+
 
     void Jump()
     {
