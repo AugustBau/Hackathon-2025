@@ -76,6 +76,7 @@ public class NPCFollower : MonoBehaviour
         if (frontHit.collider && !isSliding && isGrounded)
         {
             StartCoroutine(Slide());
+            SoundManager.Instance.PlayEnemySound("jumping");
         }
 
         // Shake detection
@@ -85,6 +86,7 @@ public class NPCFollower : MonoBehaviour
             {
                 lastShakeTime = Time.time;
                 StartCoroutine(SlowDownNPC());
+                SoundManager.Instance.PlayEnemySound("shaken");
             }
         }
     }
@@ -92,6 +94,7 @@ public class NPCFollower : MonoBehaviour
     void Jump()
     {
         rb.linearVelocity = new Vector2(rb.linearVelocityX, jumpForce);
+        SoundManager.Instance.PlayEnemySound("jumping");
     }
 
     System.Collections.IEnumerator Slide()
