@@ -3310,7 +3310,7 @@ MonoBehaviour:
   birdPrefab: {fileID: 8162809876406596107, guid: 36459c1d57c0ff64e989f6941c98041c, type: 3}
   poolSize: 2
   spawnInterval: 6
-  spawnY: 4
+  spawnY: 3
   xStart: 6
 --- !u!4 &1782010151
 Transform:
