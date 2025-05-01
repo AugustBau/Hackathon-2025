@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     string currentScene;
     bool danielStarted = false;
     bool runningStarted = false;
-    public GameObject restartButton;
 
     private void Awake()
     {
@@ -49,7 +48,7 @@ public class GameManager : MonoBehaviour
 
         if (currentScene == "IntroScene" && startTimer >= 5)
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("SoundTest");
             startTimer = 0;
         }
         else
