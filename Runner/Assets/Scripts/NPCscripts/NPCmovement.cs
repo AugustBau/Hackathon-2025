@@ -4,102 +4,138 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class NPCFollower : MonoBehaviour
 {
-    // Hvor hurtigt NPC'en løber
+    // Bevægelse
     public float moveSpeed = 5f;
+    private float originalSpeed;
+    public float slowedSpeed = 2f;
+    public float slowDuration = 2f;
 
-    // Hvor kraftigt NPC'en hopper
+    // Hop og slide
     public float jumpForce = 12f;
-
-    // Hvor længe en slide varer
     public float slideDuration = 1f;
+    private bool isSliding = false;
 
-    private Rigidbody2D rb;         // Reference til Rigidbody2D-komponenten
-    private bool isGrounded = true; // Tjek om NPC'en er på jorden
-    private bool isSliding = false; // Tjek om NPC'en er midt i en slide
+    // Ground check
+    private Rigidbody2D rb;
+    private bool isGrounded = true;
+    public Transform groundCheck;
+    public LayerMask groundLayer;
+    public LayerMask obstacleLayer;
 
-    public Transform groundCheck;      // Et tomt GameObject under NPC'ens fødder
-    public LayerMask groundLayer;      // Layer for jorden/platformene
-    public LayerMask obstacleLayer;    // Layer for forhindringer (skorsten, vandtårn)
+    // Collider
+    private CapsuleCollider2D col;
+    private BoxCollider2D playerTouch;
+    private bool isTouchingPlayer = false;
 
-    private CapsuleCollider2D col;     // Reference til NPC'ens collider
+    // UI og grafik
+    public GameObject restartButton;
+    public SpriteRenderer player;
+    public SpriteRenderer enemy;
+
+    // Shake detection
+    public float shakeThreshold = 2.0f;
+    public float shakeCooldown = 1.0f;
+    private float lastShakeTime = 0f;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();     // Henter Rigidbody2D-komponenten
-        col = GetComponent<CapsuleCollider2D>(); // Henter Collideren
+        rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<CapsuleCollider2D>();
+        playerTouch = GetComponent<BoxCollider2D>();
+
+        isTouchingPlayer = false;
+        originalSpeed = moveSpeed;
+
+        player.enabled = true;
+        enemy.enabled = true;
     }
 
     void Update()
     {
-        // Så længe NPC'en ikke slider, skal den løbe fremad
+        // Bevæg NPC'en hvis ikke den slider
         if (!isSliding)
-            rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocityY);
 
-        // Tjek om vi står på jorden (lille cirkel under fødderne)
+        // Tjek om NPC'en står på jorden
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
 
-        // Raycast lige frem (bruges til at opdage vandtårne → slide)
+        // Raycasts for at opdage forhindringer
         RaycastHit2D frontHit = Physics2D.Raycast(transform.position, Vector2.right, 1f, obstacleLayer);
-
-        // Raycast lidt frem + nedad (bruges til at opdage huller)
         Vector2 downOrigin = transform.position + Vector3.right * 0.6f;
         RaycastHit2D holeHit = Physics2D.Raycast(downOrigin, Vector2.down, 1.5f, groundLayer);
-
-        // Raycast lidt oppe + fremad (bruges til at opdage skorstene)
         Vector2 upperOrigin = transform.position + Vector3.up * 0.6f;
         RaycastHit2D highHit = Physics2D.Raycast(upperOrigin, Vector2.right, 1f, obstacleLayer);
 
-        // Hvis der er et hul ELLER en lav forhindring foran → hop (kun hvis vi står på jorden)
+        // Hop ved hul eller skorsten
         if ((!holeHit.collider || highHit.collider) && isGrounded)
         {
             Jump();
         }
 
-        // Hvis der er en høj forhindring lige foran → slide (kun hvis vi står på jorden og ikke allerede slider)
+        // Slide ved lav forhindring
         if (frontHit.collider && !isSliding && isGrounded)
         {
             StartCoroutine(Slide());
+        }
+
+        // Shake detection
+        if (Time.time - lastShakeTime > shakeCooldown)
+        {
+            if (Input.acceleration.sqrMagnitude >= shakeThreshold * shakeThreshold)
+            {
+                lastShakeTime = Time.time;
+                StartCoroutine(SlowDownNPC());
+            }
         }
     }
 
     void Jump()
     {
-        // Tilføj opadgående fart → hop
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        rb.linearVelocity = new Vector2(rb.linearVelocityX, jumpForce);
     }
 
-    // Coroutine = noget der sker over tid
     System.Collections.IEnumerator Slide()
     {
-        isSliding = true; // Nu slider vi
-
-        // Gør NPC'ens collider lavere (så den kan komme under vandtårnet)
+        isSliding = true;
         col.size = new Vector2(col.size.x, col.size.y / 2f);
         col.offset = new Vector2(col.offset.x, col.offset.y - 0.25f);
-
-        // Vent i X sekunder
         yield return new WaitForSeconds(slideDuration);
-
-        // Gør collider normal igen
         col.size = new Vector2(col.size.x, col.size.y * 2f);
         col.offset = new Vector2(col.offset.x, col.offset.y + 0.25f);
-
-        isSliding = false; // Slut med slide
+        isSliding = false;
     }
 
-    // Denne metode tegner Raycasts i editoren, så du visuelt kan se hvad NPC'en "ser"
+    System.Collections.IEnumerator SlowDownNPC()
+    {
+        moveSpeed = slowedSpeed;
+        Debug.Log("Shaking detected");
+        yield return new WaitForSeconds(slowDuration);
+        moveSpeed = originalSpeed;
+    }
+
     void OnDrawGizmosSelected()
     {
-        // Raycast lige frem (vandtårn)
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.right * 1f);
 
-        // Raycast skråt ned (hul)
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(transform.position + Vector3.right * 0.6f, (Vector2)transform.position + new Vector2(0.6f, -1.5f));
 
-        // Raycast lidt oppe og frem (skorsten)
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position + Vector3.up * 0.6f, (Vector2)transform.position + new Vector2(1f, 0.6f));
     }
+
+    /* void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") && !isTouchingPlayer)
+        {
+            SoundManager.Instance.PlayEnemySound("catching");
+            isTouchingPlayer = true;
+            Debug.Log("touching player");
+            player.enabled = false;
+            enemy.enabled = false;
+            restartButton.SetActive(true);
+        }
+    }
+    */
 }

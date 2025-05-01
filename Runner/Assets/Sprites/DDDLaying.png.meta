@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f11677c6e861a1e479d8816516169356
+guid: 54d1030d1655d427fa74cf842d13e0b9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1131983508113477602
-    second: Laying_0
+      213: 8704504999351188848
+    second: DDDLaying_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -96,16 +96,42 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Laying_0
+      name: DDDLaying_0
       rect:
         serializedVersion: 2
-        x: 4
+        x: 3
         y: 24
-        width: 60
+        width: 61
         height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -115,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e10bb433ff26a40f0800000000000000
-      internalID: -1131983508113477602
+      spriteID: 07d70ffad2d9cc870800000000000000
+      internalID: 8704504999351188848
       vertices: []
       indices: 
       edges: []
@@ -135,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Laying_0: -1131983508113477602
+      DDDLaying_0: 8704504999351188848
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

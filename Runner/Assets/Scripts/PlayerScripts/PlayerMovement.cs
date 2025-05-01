@@ -5,17 +5,24 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 5f;
     private Rigidbody2D rb;
     private bool isGrounded;
-    private bool isSliding = false;
+    private float slideTimer;
+    bool isSliding = false;
+
+    private Animator animator;
+
 
     public Transform groundCheck;
     public LayerMask groundLayer;
 
     public BoxCollider2D playerCollider;
     private Vector2 originalColliderSize;
+    private Vector2 startTouchPosition;
+    private Vector2 endTouchPosition;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         playerCollider = GetComponent<BoxCollider2D>();
         originalColliderSize = playerCollider.size;
 
@@ -26,35 +33,56 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Brug Raycast til at tjekke om vi står på jorden
-        RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.3f, groundLayer);
-        isGrounded = hit.collider != null;
+        
+        float swipeThreshold = 50f; // Adjust for sensitivity
 
-        Debug.Log("Is Grounded: " + isGrounded);
+            isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    startTouchPosition = touch.position;
+                }
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    endTouchPosition = touch.position;
+                    Vector2 swipeDirection = endTouchPosition - startTouchPosition;
+
+                if (Mathf.Abs(swipeDirection.y) > swipeThreshold && Mathf.Abs(swipeDirection.y) > Mathf.Abs(swipeDirection.x))
+                {
+                    if (swipeDirection.y > 0 && isGrounded)
+                    {
+                        // Swipe Up - Jump
+                        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                    }
+                    else if (swipeDirection.y < 0 && isGrounded && !isSliding)
+                    {
+                        // Swipe Down - Slide
+                        StartCoroutine(SlideCoroutine());
+                    }
+                }
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.S) && isGrounded && !isSliding)
-        {
-            StartCoroutine(SlideCoroutine());
-        }
     }
 
     private System.Collections.IEnumerator SlideCoroutine()
     {
         isSliding = true;
+        animator.SetBool("isSliding", true);
 
         Vector2 slideSize = playerCollider.size;
-        slideSize.y = 0.1f;
+        slideSize.y = 0.3f;
         playerCollider.size = slideSize;
 
         yield return new WaitForSeconds(2f);
 
         playerCollider.size = originalColliderSize;
         isSliding = false;
+        animator.SetBool("isSliding", false);
     }
 
     void OnDrawGizmos()
