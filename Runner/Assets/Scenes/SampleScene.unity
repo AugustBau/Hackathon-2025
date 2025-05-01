@@ -189,6 +189,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1258692859891856275, guid: cc9112dfe6a476540a62ed1807ed8191, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5761162618956981152, guid: cc9112dfe6a476540a62ed1807ed8191, type: 3}
       propertyPath: m_LocalScale.y
       value: 10.037001
@@ -2073,6 +2077,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1725782656}
     m_Modifications:
+    - target: {fileID: 1258692859891856275, guid: cc9112dfe6a476540a62ed1807ed8191, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5761162618956981152, guid: cc9112dfe6a476540a62ed1807ed8191, type: 3}
       propertyPath: m_LocalPosition.x
       value: 45.3
@@ -2806,6 +2814,10 @@ PrefabInstance:
     - target: {fileID: 5561052070224871299, guid: 3363bc68acfe46648967dab9b2c24287, type: 3}
       propertyPath: m_Name
       value: 'BuldingWithVentilator '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647726149973568224, guid: 3363bc68acfe46648967dab9b2c24287, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
