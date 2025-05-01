@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         isSliding = true;
 
         Vector2 slideSize = playerCollider.size;
-        slideSize.y = 0f;
+        slideSize.y = 0.1f;
         playerCollider.size = slideSize;
 
         yield return new WaitForSeconds(2f);

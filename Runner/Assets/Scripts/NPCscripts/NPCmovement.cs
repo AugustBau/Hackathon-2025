@@ -22,11 +22,16 @@ public class NPCFollower : MonoBehaviour
     public LayerMask obstacleLayer;    // Layer for forhindringer (skorsten, vandtårn)
 
     private CapsuleCollider2D col;     // Reference til NPC'ens collider
+    private BoxCollider2D playerTouch;  // Collider der checker om NPC'en rører spilleren
+    private bool isTouchingPlayer = false; // Tjek om NPC'en rører ved spilleren
+    public GameObject restartButton;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();     // Henter Rigidbody2D-komponenten
         col = GetComponent<CapsuleCollider2D>(); // Henter Collideren
+        playerTouch = GetComponent<BoxCollider2D>();
+        isTouchingPlayer = false;
     }
 
     void Update()
@@ -101,5 +106,16 @@ public class NPCFollower : MonoBehaviour
         // Raycast lidt oppe og frem (skorsten)
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position + Vector3.up * 0.6f, (Vector2)transform.position + new Vector2(1f, 0.6f));
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") && isTouchingPlayer == false)
+        {
+            SoundManager.Instance.PlayEnemySound("catching");
+            isTouchingPlayer = true;
+            Debug.Log("touching player");
+            restartButton.SetActive(true);
+        }
     }
 }
