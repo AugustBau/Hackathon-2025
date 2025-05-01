@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3230828752963093897}
   - component: {fileID: 4272237617045429334}
   - component: {fileID: 8605076768239921515}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bulding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
