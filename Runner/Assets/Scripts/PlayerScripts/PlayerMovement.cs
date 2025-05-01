@@ -52,13 +52,21 @@ public class PlayerMovement : MonoBehaviour
     {
         isSliding = true;
 
+        // Shrink collider height and lower it slightly
         Vector2 slideSize = playerCollider.size;
-        slideSize.y = 0.1f;
+        Vector2 slideOffset = playerCollider.offset;
+
+        slideSize.y = 0.3f; // Don't go too low — try half the original height
+        slideOffset.y -= 0.15f; // Move it down so bottom stays on the ground
+
         playerCollider.size = slideSize;
+        playerCollider.offset = slideOffset;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f); // Adjust duration
 
+        // Reset to original size and offset
         playerCollider.size = originalColliderSize;
+        playerCollider.offset = Vector2.zero; // Assuming original was centered
         isSliding = false;
     }
 

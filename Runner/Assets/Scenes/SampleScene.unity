@@ -645,11 +645,11 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.6499996, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.043333214, y: 0.71333337, z: -10}
+  m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1203048292}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &580140226
 PrefabInstance:
@@ -1294,6 +1294,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1725782656}
     m_Modifications:
+    - target: {fileID: 1089946110847267251, guid: cc9112dfe6a476540a62ed1807ed8191, type: 3}
+      propertyPath: m_Size.y
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 5761162618956981152, guid: cc9112dfe6a476540a62ed1807ed8191, type: 3}
       propertyPath: m_LocalPosition.x
       value: 45.3
@@ -1469,10 +1473,12 @@ Transform:
   m_GameObject: {fileID: 1203048288}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.25, y: -2.14, z: 0}
+  m_LocalPosition: {x: -3.52, y: -2.14, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 519420032}
+  - {fileID: 1897355978}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1203048293
@@ -1539,7 +1545,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 576
-  playerCollider: {fileID: 0}
+  playerCollider: {fileID: 1203048293}
 --- !u!95 &1203048295
 Animator:
   serializedVersion: 7
@@ -2069,11 +2075,11 @@ Transform:
   m_GameObject: {fileID: 1897355977}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.199, y: -3.526, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: -2.2263336, y: -0.46199998, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1203048292}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8371481788735945427
 PrefabInstance:
@@ -2144,5 +2150,3 @@ SceneRoots:
   - {fileID: 694374727}
   - {fileID: 1032963828}
   - {fileID: 295216504}
-  - {fileID: 519420032}
-  - {fileID: 1897355978}
