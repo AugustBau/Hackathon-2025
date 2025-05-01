@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Transform groundCheck;
     public LayerMask groundLayer;
+    public float groundCheckRadius = 0.2f;
 
     public BoxCollider2D playerCollider;
     private Vector2 originalColliderSize;
