@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/SoundTest.unity
     guid: b18afadd241dcdf419ebfcc3dee418c2
   m_configObjects:
-    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: f01ffbc2d52b74988a07b7aad863eca8, type: 2}
-    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 88cb2f2ca1ea74720851bc8c8fc1bd84, type: 2}
-    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: 1aaea42fe5bd946d28aabf265e98b948, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: cfb09e9e77ba5ae458ab9fe5ce8bd076, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
