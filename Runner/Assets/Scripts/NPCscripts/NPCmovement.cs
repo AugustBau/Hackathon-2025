@@ -107,7 +107,7 @@ public class NPCFollower : MonoBehaviour
 
     System.Collections.IEnumerator SlowDownNPC()
     {
-        moveSpeed = slowedSpeed;
+        moveSpeed = slowedSpeed;    
         Debug.Log("Shaking detected");
         yield return new WaitForSeconds(slowDuration);
         moveSpeed = originalSpeed;
