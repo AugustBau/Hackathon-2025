@@ -64,11 +64,13 @@ public class PlayerMovement : MonoBehaviour
                     {
                         // Swipe Up - Jump
                         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                        SoundManager.Instance.PlayPlayerSound("PlayerJump");
                     }
                     else if (swipeDirection.y < 0 && isGrounded && !isSliding)
                     {
                         // Swipe Down - Slide
                         StartCoroutine(SlideCoroutine());
+                        SoundManager.Instance.PlayPlayerSound("PlayerSlide");
                     }
                 }
             }
