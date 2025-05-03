@@ -83,6 +83,16 @@ public class NPCFollower : MonoBehaviour
         {
             hasJumped = false;
         }
+
+        if (Time.time - lastShakeTime > shakeCooldown)
+        {
+            Vector3 acceleration = Input.acceleration;
+            if (acceleration.sqrMagnitude >= shakeThreshold * shakeThreshold)
+            {
+                lastShakeTime = Time.time;
+                StartCoroutine(SlowDownNPC());
+            }
+        }
     }
 
     bool IsLayer(GameObject obj, string layerName)
