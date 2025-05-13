@@ -1,6 +1,5 @@
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -26,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 startTouchPosition;
     private Vector2 endTouchPosition;
 
+    private CapsuleCollider2D fallCheck;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
         originalColliderSize = playerCollider.size;
         originalColliderSize.y = 0.64f;
         playerCollider.size = originalColliderSize;
+
+        fallCheck = GetComponent<CapsuleCollider2D>();
     }
 
     // Update is called once per frame
@@ -75,6 +78,16 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
             }
+
+            if (isSliding == true)
+            {
+                animator.SetBool("isSliding", true);
+            }
+            else
+            {
+                animator.SetBool("isSliding", false);
+            }
+
         }
             if(Input.GetKey(KeyCode.W) && isGrounded)
         {
@@ -121,5 +134,19 @@ public class PlayerMovement : MonoBehaviour
     {
         if (groundCheck != null)
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            AutoRunPlayer.moveSpeed = 0f;
+        }
+
+        if (collision.CompareTag("Restart"))
+        {
+            SoundManager.Instance.PlayEnemySound("dying");
+            GameManager.Instance.LoadScene("SampleScene");
+        }
     }
 }
