@@ -1,11 +1,7 @@
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerSystem : Singleton<PlayerSystem>
 {
-    AutoRunPlayer autoRunPlayer;
-
     public float jumpForce = 50f;
     private Rigidbody2D rb;
     public bool isGrounded;
@@ -25,13 +21,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 endTouchPosition;
 
     private CapsuleCollider2D fallCheck;
-
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        autoRunPlayer = GetComponent<AutoRunPlayer>();
-
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerCollider = GetComponent<BoxCollider2D>();
@@ -42,43 +34,9 @@ public class PlayerMovement : MonoBehaviour
         fallCheck = GetComponent<CapsuleCollider2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
-        float swipeThreshold = 50f; // Adjust for sensitivity
-
-            isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-
-            if (Input.touchCount > 0)
-            {
-                Touch touch = Input.GetTouch(0);
-
-                if (touch.phase == TouchPhase.Began)
-                {
-                    startTouchPosition = touch.position;
-                }
-                else if (touch.phase == TouchPhase.Ended)
-                {
-                    endTouchPosition = touch.position;
-                    Vector2 swipeDirection = endTouchPosition - startTouchPosition;
-
-                if (Mathf.Abs(swipeDirection.y) > swipeThreshold && Mathf.Abs(swipeDirection.y) > Mathf.Abs(swipeDirection.x))
-                {
-                    if (swipeDirection.y > 0 && isGrounded)
-                    {
-                        // Swipe Up - Jump
-                        Jump();
-                    }
-                    else if (swipeDirection.y < 0 && isGrounded && !isSliding)
-                    {
-                        // Swipe Down - Slide
-                        Slide();
-                    }
-                }
-            }
-
-            if (isSliding == true)
+          if (isSliding == true)
             {
                 animator.SetBool("isSliding", true);
             }
@@ -86,19 +44,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 animator.SetBool("isSliding", false);
             }
-
-        }
-            if(Input.GetKey(KeyCode.W) && isGrounded)
-        {
-            Jump();
-        }
-        if (Input.GetKey(KeyCode.S) && isGrounded && !isSliding)
-        {
-            Slide();
-        }
-
+        
     }
-    void Jump ()
+
+    public void Jump ()
     {
         Debug.Log("jump");
         rb.linearVelocity = new Vector2(rb.linearVelocityX, jumpForce);
@@ -106,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         SoundManager.Instance.PlayPlayerSound("PlayerJump");
         
     }
-    void Slide()
+    public void Slide()
     {
 
         StartCoroutine(SlideCoroutine());
