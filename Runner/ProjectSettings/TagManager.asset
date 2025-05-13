@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Restart
+  - Obstacle
   layers:
   - Default
   - TransparentFX

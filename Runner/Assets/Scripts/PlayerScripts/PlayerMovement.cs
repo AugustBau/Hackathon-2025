@@ -24,9 +24,22 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 originalColliderSize;
     private Vector2 startTouchPosition;
     private Vector2 endTouchPosition;
-
     private CapsuleCollider2D fallCheck;
 
+    float lastTouchTime = 0f;
+    float doubleTouchTime = 0.2f;
+    bool doubleTouch = false;
+
+    private bool megaMode = false;
+    public bool MegaMode
+    {  get { return megaMode; }
+    set {megaMode = value; }
+    }
+    float megaModeCoolDown = 1f;
+    float megaModeCoolDownTime = 0f;
+    float megaModeDuration = 5f;
+    float megaModeDurationTime = 0f;
+    float scaleEnhancer = 4f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -40,29 +53,42 @@ public class PlayerMovement : MonoBehaviour
         originalColliderSize.y = 0.64f;
         playerCollider.size = originalColliderSize;
 
+
         fallCheck = GetComponent<CapsuleCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
         float swipeThreshold = 50f; // Adjust for sensitivity
 
-            isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-            if (Input.touchCount > 0)
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            if (lastTouchTime < doubleTouchTime && touch.phase == TouchPhase.Began)
             {
-                Touch touch = Input.GetTouch(0);
+                doubleTouch = true;
+            } else
+            {
+                doubleTouch = false;
+            }
+            if (touch.phase == TouchPhase.Began)
+            {
+                lastTouchTime = 0f; // Reset lastTouchTime
+            }
+               
 
-                if (touch.phase == TouchPhase.Began)
-                {
-                    startTouchPosition = touch.position;
-                }
-                else if (touch.phase == TouchPhase.Ended)
-                {
-                    endTouchPosition = touch.position;
-                    Vector2 swipeDirection = endTouchPosition - startTouchPosition;
+            if (touch.phase == TouchPhase.Began)
+            {
+                startTouchPosition = touch.position;
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                endTouchPosition = touch.position;
+                Vector2 swipeDirection = endTouchPosition - startTouchPosition;
 
                 if (Mathf.Abs(swipeDirection.y) > swipeThreshold && Mathf.Abs(swipeDirection.y) > Mathf.Abs(swipeDirection.x))
                 {
@@ -79,14 +105,14 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            if (isSliding == true)
-            {
-                animator.SetBool("isSliding", true);
-            }
-            else
-            {
-                animator.SetBool("isSliding", false);
-            }
+        if (isSliding == true)
+        {
+            animator.SetBool("isSliding", true);
+        }
+        else
+        {
+            animator.SetBool("isSliding", false);
+        }
 
         }
             if(Input.GetKey(KeyCode.W) && isGrounded)
@@ -98,6 +124,48 @@ public class PlayerMovement : MonoBehaviour
             Slide();
         }
 
+
+        if (doubleTouch && !megaMode)
+        {
+            if (megaModeCoolDownTime > megaModeCoolDown)
+            {
+                EnableMegaMode();
+
+            }
+        }
+        if (megaMode)
+        {
+            megaModeDurationTime += Time.deltaTime;
+            if (megaModeDurationTime > megaModeDuration)
+            {
+                DisableMegaMode();
+                megaModeCoolDownTime = 0f;
+                megaModeDurationTime = 0f;
+            }
+        }
+        else
+        {
+            megaModeCoolDownTime += Time.deltaTime;
+        }
+        lastTouchTime += Time.deltaTime;
+
+    }
+    void EnableMegaMode ()
+    {
+        Vector3 cameraPostion = Camera.main.transform.position;
+        megaMode = true;
+        transform.localScale = transform.localScale * scaleEnhancer;
+        transform.position = new Vector2(transform.position.x-scaleEnhancer/2, transform.position.y +scaleEnhancer/2);
+        Camera.main.transform.position = cameraPostion;
+
+    }
+    void DisableMegaMode()
+    {
+        Vector3 cameraPostion = Camera.main.transform.position;
+        megaMode = false;
+        transform.localScale = transform.localScale / scaleEnhancer;
+        transform.position = new Vector2(transform.position.x + scaleEnhancer / 2, transform.position.y - scaleEnhancer / 2);
+        Camera.main.transform.position = cameraPostion;
     }
     void Jump ()
     {
@@ -124,10 +192,15 @@ public class PlayerMovement : MonoBehaviour
         playerCollider.size = slideSize;
 
         yield return new WaitForSeconds(2f);
-
+       
         playerCollider.size = originalColliderSize;
         isSliding = false;
         animator.SetBool("isSliding", false);
+
+        if (megaMode)
+        {
+            transform.position += new Vector3(0f, scaleEnhancer/2f,0);
+        }
     }
 
     void OnDrawGizmos()
@@ -147,6 +220,14 @@ public class PlayerMovement : MonoBehaviour
         {
             SoundManager.Instance.PlayEnemySound("dying");
             GameManager.Instance.LoadScene("SampleScene");
+        }
+      
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Obstacle" && megaMode)
+        {
+            Destroy(collision.gameObject);
         }
     }
 }

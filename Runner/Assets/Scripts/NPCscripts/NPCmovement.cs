@@ -148,10 +148,18 @@ public class NPCFollower : MonoBehaviour
     {
         if (other.CompareTag("Player") && !isTouchingPlayer)
         {
-            SoundManager.Instance.PlayEnemySound("catching");
-            isTouchingPlayer = true;
-            Debug.Log("touching player");
-            GameManager.Instance.LoadScene("SampleScene");
+            if (other.GetComponent<PlayerMovement>().MegaMode == false)
+            {
+                SoundManager.Instance.PlayEnemySound("catching");
+                isTouchingPlayer = true;
+                Debug.Log("touching player");
+                GameManager.Instance.LoadScene("SampleScene");
+            }
+            else
+            {
+                transform.position += new Vector3(-4f, 0.5f, 0);
+
+            }
         }
 
         // Slide under WaterTank
