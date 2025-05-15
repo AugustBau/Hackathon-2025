@@ -41,7 +41,8 @@ public class BirdSpawner : MonoBehaviour
             if (bird != null)
             {
                 float offsetY = Random.Range(-1f, 1f);
-                bird.GetComponent<Bird>().Fly(new Vector2(xStart, spawnY + offsetY));
+                Vector2 spawnPos = new Vector2(transform.position.x + xStart, transform.position.y + spawnY + offsetY);
+                bird.GetComponent<Bird>().Fly(spawnPos);
             }
         }
     }
