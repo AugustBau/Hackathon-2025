@@ -67,7 +67,7 @@ public class NPCFollower : MonoBehaviour
         Vector2 upperOrigin = transform.position + Vector3.up * 0.6f;
         RaycastHit2D highHit = Physics2D.Raycast(upperOrigin, Vector2.right, 1f);
 
-        // Tjek om vi skal hoppe pga. hul eller lav forhindring
+        // Tjek om den skal hoppe pga. hul eller lav forhindring
         bool isOverHole = !holeHit.collider;
         bool shouldJump = isOverHole && !wasOverHoleLastFrame && isGrounded;
 
