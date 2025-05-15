@@ -1,11 +1,10 @@
 using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
 
-    AutoRunPlayer autoRunPlayer;
+    AutoRunPlayer autoRunPlayer; 
 
     public float jumpForce = 50f;
     private Rigidbody2D rb;
@@ -28,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     private CapsuleCollider2D fallCheck;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         autoRunPlayer = GetComponent<AutoRunPlayer>();
@@ -43,11 +41,11 @@ public class PlayerMovement : MonoBehaviour
         fallCheck = GetComponent<CapsuleCollider2D>();
     }
 
-    // Update is called once per frame
+   
     void Update()
     {
         
-        float swipeThreshold = 50f; // Adjust for sensitivity
+        float swipeThreshold = 50f; 
 
             isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
@@ -103,7 +101,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log("jump");
         rb.linearVelocity = new Vector2(rb.linearVelocityX, jumpForce);
-        //rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         SoundManager.Instance.PlayPlayerSound("PlayerJump");
         
     }
